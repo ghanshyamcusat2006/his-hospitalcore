@@ -431,5 +431,33 @@ public class HibernateHospitalCoreDAO implements HospitalCoreDAO {
 		criteria.add(Restrictions.eq("concept", concept));
 		return criteria.list();
 	}
+	
+	public Set<Encounter> getEncountersByEncounterType(EncounterType encounterType, Date startDate, Date endDate) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Encounter.class);
+		System.out.println("gggggggggggg-" + startDate);
+		System.out.println("hhhhhhhhhhhhh-" + endDate);
+		System.out.println("iiiiiiiiiiiiiiiii-" + encounterType);
+		criteria.add(Restrictions.eq("encounterType", encounterType));
+		criteria.add(Restrictions.and(Restrictions.ge("encounterDatetime", startDate),
+				Restrictions.le("encounterDatetime", endDate)));
+		List<Encounter> enc = criteria.list();
+		Set<Encounter> dops = new LinkedHashSet<Encounter>();
+		for (Encounter o : enc) {
+			dops.add(o);
+
+		}
+		System.out.println("jjjjjjjjjjjjjjjjjjjj-" +dops.size());
+		return dops;
+	}
+
+	public PersonAttribute getPersonAttributeByPersonAndAttributeName(Person person,
+			PersonAttributeType personAttributeType) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PersonAttribute.class, "pa");
+		criteria.add(Restrictions.eq("person", person));
+		criteria.add(Restrictions.eq("attributeType", personAttributeType));
+
+		List<PersonAttribute> list = criteria.list();
+		return CollectionUtils.isNotEmpty(list) ? list.get(0) : null;
+	}
 
 }

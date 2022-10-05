@@ -57,7 +57,9 @@ import org.openmrs.GlobalProperty;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
@@ -715,6 +717,15 @@ public class HospitalCoreServiceImpl extends BaseOpenmrsService implements Hospi
 
 	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter, Concept concept) {
 		return dao.getObsInstanceForDiagnosis(encounter, concept);
+	}
+	
+	public Set<Encounter> getEncountersByEncounterType(EncounterType encounterType, Date startDate, Date endDate) {
+		return dao.getEncountersByEncounterType(encounterType, startDate, endDate);
+	}
+
+	public PersonAttribute getPersonAttributeByPersonAndAttributeName(Person person,
+			PersonAttributeType personAttributeType) {
+		return dao.getPersonAttributeByPersonAndAttributeName(person, personAttributeType);
 	}
 
 }

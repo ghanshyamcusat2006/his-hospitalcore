@@ -31,7 +31,9 @@ import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hospitalcore.concept.ConceptModel;
 import org.openmrs.module.hospitalcore.model.CoreForm;
@@ -147,5 +149,11 @@ public interface HospitalCoreDAO {
 	public Set<Encounter> getEncountersByPatientAndDateFromObs(String date);
 
 	public List<Obs> getObsInstanceForDiagnosis(Encounter encounter, Concept concept) throws DAOException;
+	
+	public Set<Encounter> getEncountersByEncounterType(EncounterType encounterType, Date startDate, Date endDate)
+			throws DAOException;
+
+	public PersonAttribute getPersonAttributeByPersonAndAttributeName(Person person,
+			PersonAttributeType personAttributeType) throws DAOException;
 
 }
